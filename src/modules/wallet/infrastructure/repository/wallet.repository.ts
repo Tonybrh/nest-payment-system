@@ -6,18 +6,41 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class WalletRepository implements WalletRepositoryInterface {
-  constructor(
-    private prismaService: PrismaService
-  ) {
-  }
+  constructor(private prismaService: PrismaService) {}
 
   async createWallet(data: WalletDto): Promise<Wallet> {
-      try {
-          const wallet = await this.prismaService.wallet.create({data});
-          console.log("Wallet created:", wallet);
-          return wallet;
-      } catch (error) {
-          console.error("Error creating wallet:", error);
-          throw error;
-      }  }
+    try {
+      return await this.prismaService.wallet.create({ data });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getWalletByUserId(userId: number): Promise<Wallet> {
+    try {
+      return await this.prismaService.wallet.findFirst({
+        where: {
+          userId: userId,
+        },
+      });
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateBalance(dolarBalance: number, walletId: number): Promise<void> {
+    try {
+      await this.prismaService.wallet.update({
+        where: {
+          id: walletId,
+        },
+        data: {
+          dolarBalance: dolarBalance
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
 }
