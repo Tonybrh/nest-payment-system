@@ -8,7 +8,7 @@ import { UserRepository } from '../user/infrastructure/repository/user.repositor
 import { PrismaService } from 'prisma/prisma.service';
 import { WalletService } from '../wallet/infrastructure/service/wallet.service';
 import { WalletModule } from '../wallet/wallet.module';
-import { VerifyEmailController } from './mailer.controller';
+import { VerifyEmailController } from './application/controller/mailer.controller';
 import { WalletRepository } from '../wallet/infrastructure/repository/wallet.repository';
 import { UserService } from '../user/infrastructure/service/user.service';
 

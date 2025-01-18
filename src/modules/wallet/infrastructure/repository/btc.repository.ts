@@ -18,4 +18,14 @@ export class BtcRepository implements BtcRepositoryInterface {
     async updateBtc(data: Prisma.BtcUpdateInput, where: Prisma.BtcWhereUniqueInput) {
         await this.prismaService.btc.update({ data, where });
     }
+
+    async getBtcRateInDollars(symbol: string): Promise<number> {
+        const btc = await this.prismaService.btc.findFirst({
+            where: {
+                symbol,
+            },
+        });
+
+        return btc.value.toNumber();
+    }
 }

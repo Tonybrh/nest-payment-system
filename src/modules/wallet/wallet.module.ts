@@ -3,10 +3,11 @@ import { WalletService } from "./infrastructure/service/wallet.service";
 import { PrismaService } from "prisma/prisma.service";
 import { UserModule } from "../user/user.module";
 import { WalletRepository } from "./infrastructure/repository/wallet.repository";
-import { WalletController } from './wallet.controller';
+import { WalletController } from './application/controller/wallet.controller';
 import { BtcService } from './infrastructure/service/btc.service';
 import { HttpModule } from '@nestjs/axios';
 import { BtcRepository } from './infrastructure/repository/btc.repository';
+import { BtcController } from './application/controller/btc.controller';
 
 @Module({
     imports: [
@@ -18,9 +19,9 @@ import { BtcRepository } from './infrastructure/repository/btc.repository';
         { provide: 'WalletServiceInterface', useClass: WalletService },
         { provide: 'WalletRepositoryInterface', useClass: WalletRepository },
         { provide: 'BtcRepositoryInterface', useClass: BtcRepository},
-        BtcService
+        {provide: 'BtcServiceInterface', useClass: BtcService},
     ],
-    controllers: [WalletController]
+    controllers: [WalletController, BtcController]
 })
 
 export class WalletModule { }

@@ -1,7 +1,7 @@
 import { Controller, Get, Inject, Query, Res } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
-import { UserServiceInterface } from '../user/domain/service/user.service.interface';
+import { UserServiceInterface } from '../../../user/domain/service/user.service.interface';
 
 @Controller('verify-email')
 export class VerifyEmailController {

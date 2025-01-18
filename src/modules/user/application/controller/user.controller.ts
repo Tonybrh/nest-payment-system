@@ -1,6 +1,6 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { EmailService } from '../mailer/infrastructure/service/mailer.service';
-import { UserDto } from './domain/dto/user.dto';
+import { EmailService } from '../../../mailer/infrastructure/service/mailer.service';
+import { UserDto } from '../../domain/dto/user.dto';
 
 @Controller('users')
 export class UserController {

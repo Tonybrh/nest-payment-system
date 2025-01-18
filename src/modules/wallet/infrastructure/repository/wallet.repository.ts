@@ -43,4 +43,28 @@ export class WalletRepository implements WalletRepositoryInterface {
       throw error;
     }
   }
+
+  async findOne(walletId: number): Promise<Wallet> {
+    try {
+      return await this.prismaService.wallet.findFirst({ where: {id: walletId} });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateWallet(walletId: number, btcBalance: number, dolarBalance: number ): Promise<void> {
+    try {
+      await this.prismaService.wallet.update({
+        where: {
+          id: walletId,
+        },
+        data: {
+          btcBalance: btcBalance,
+          dolarBalance: dolarBalance
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
 }
