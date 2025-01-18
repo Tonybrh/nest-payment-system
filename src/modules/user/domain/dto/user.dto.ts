@@ -4,7 +4,7 @@ export class UserDto {
     email: string;
     password: string;
     cpf: string;
-    phone: number;
+    phone: string;
     adress: string;
     occupation: string;
     income: number;

@@ -1,10 +1,16 @@
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Verify } from 'crypto';
+import { JwtModule } from '@nestjs/jwt';
+import { EmailService } from './infrastructure/service/mailer.service';
+import { UserModule } from '../user/user.module';
+import { UserRepository } from '../user/infrastructure/repository/user.repository';
+import { PrismaService } from 'prisma/prisma.service';
+import { WalletService } from '../wallet/infrastructure/service/wallet.service';
+import { WalletModule } from '../wallet/wallet.module';
 import { VerifyEmailController } from './mailer.controller';
-import { JwtModule, JwtService } from '@nestjs/jwt';
-import { EmailService } from './mailer.service';
+import { WalletRepository } from '../wallet/infrastructure/repository/wallet.repository';
+import { UserService } from '../user/infrastructure/service/user.service';
 
 @Module({
     imports: [
@@ -34,8 +40,17 @@ import { EmailService } from './mailer.service';
             }),
             inject: [ConfigService],
         }),
+        UserModule,
+        WalletModule
     ],
     controllers: [VerifyEmailController],
-    providers: [EmailService],
+    providers: [
+        EmailService,
+        PrismaService,
+        { provide: 'UserRepositoryInterface', useClass: UserRepository },
+        { provide: 'WalletServiceInterface', useClass: WalletService },
+        { provide: 'WalletRepositoryInterface', useClass: WalletRepository },
+        { provide: 'UserServiceInterface', useClass: UserService},
+    ],
 })
 export class MailerConfigModule { }

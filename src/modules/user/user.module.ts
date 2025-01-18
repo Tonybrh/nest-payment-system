@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
 import { UserController } from './user.controller';
-import { EmailService } from '../mailer/mailer.service';
+import { EmailService } from '../mailer/infrastructure/service/mailer.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from '../auth/constants';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { WalletModule } from '../wallet/wallet.module';
+import { UserRepository } from './infrastructure/repository/user.repository';
+import { PrismaService } from 'prisma/prisma.service';
+import { WalletService } from '../wallet/infrastructure/service/wallet.service';
+import { WalletRepository } from '../wallet/infrastructure/repository/wallet.repository';
 
 @Module({
     imports: [
@@ -16,9 +20,17 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
                 signOptions: { expiresIn: '60m' },
             }),
             inject: [ConfigService],
-        })
+        }),
+        WalletModule
     ],
     controllers: [UserController],
-    providers: [EmailService],
+    providers: [
+        UserRepository,
+        PrismaService,
+        EmailService,
+        { provide: 'UserRepositoryInterface', useClass: UserRepository },
+        { provide: 'WalletServiceInterface', useClass: WalletService },
+        { provide: 'WalletRepositoryInterface', useClass: WalletRepository }
+    ],
 })
 export class UserModule { }
