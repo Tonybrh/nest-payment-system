@@ -15,6 +15,7 @@ export class BtcController {
     async buyBtc(@Body() buyBtcDto: BuyBtcDto, @Res() res: Response ): Promise<Response> {
         try {
             await this.btcService.buyBtcInDolar(buyBtcDto);
+
             return res.status(200).json({ message: 'BTC bought successfully' });
         } catch (error) {
             return res.status(400).json({ message: error.message });

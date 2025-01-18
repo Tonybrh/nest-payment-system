@@ -18,9 +18,9 @@ export class VerifyEmailController {
             const userDto = payload.userDto;
             await this.userService.createUserAndWallet(userDto);
 
-            return res.json({ "message": `E-mail ${userDto.email} verificado com sucesso!` });
+            return res.status(200).json({ "message": `E-mail ${userDto.email} verificado com sucesso!` });
         } catch (error) {
-            throw new Error(error);
+            return res.status(400).json({ message: error.message });
         }
     }
 }
