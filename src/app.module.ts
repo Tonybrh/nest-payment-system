@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MailerConfigModule } from './modules/mailer/mailer.module';
 import { UserModule } from './modules/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     MailerConfigModule,
     UserModule,
-  ],
+    ScheduleModule.forRoot()
+  ]
 })
 export class AppModule { }

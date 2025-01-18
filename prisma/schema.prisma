@@ -34,3 +34,10 @@ model Wallet {
   user         User    @relation(fields: [userId], references: [id])
   userId       Int
 }
+
+model Btc {
+  id        Int     @id @default(autoincrement())
+  value     Decimal
+  symbol    String
+  createdAt DateTime @default(now())
+}
