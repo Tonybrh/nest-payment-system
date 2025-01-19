@@ -4,7 +4,7 @@
     </a>
 </p>
 
-> ## O projeto consiste em uma api que atualiza a cada minuto o preço do bitcoin em dólar no banco de dados e um usuário após se cadastrar e verificar seu email poderá comprar um bitcoin com o preço atualizado.
+> ## O projeto consiste em uma api que atualiza a cada minuto o preço do bitcoin em dólar no banco de dados, um usuário após se cadastrar e verificar seu email poderá comprar um bitcoin com o preço atualizado.
 
 ## Instalação
 
