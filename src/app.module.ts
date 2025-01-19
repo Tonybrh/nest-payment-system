@@ -4,6 +4,7 @@ import { MailerConfigModule } from './modules/mailer/mailer.module';
 import { UserModule } from './modules/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ScheduleModule } from '@nestjs/schedule';
+import { AuthGuard } from './modules/auth/auth.guard';
 
 @Module({
   imports: [
@@ -19,6 +20,9 @@ import { ScheduleModule } from '@nestjs/schedule';
     MailerConfigModule,
     UserModule,
     ScheduleModule.forRoot()
-  ]
+  ],
+  providers: [
+    { provide: 'APP_GUARD', useClass: AuthGuard },
+  ],
 })
 export class AppModule { }

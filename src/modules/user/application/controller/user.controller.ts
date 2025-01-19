@@ -2,11 +2,13 @@ import { Controller, Post, Body, Res } from '@nestjs/common';
 import { EmailService } from '../../../mailer/infrastructure/service/mailer.service';
 import { UserDto } from '../../domain/dto/user.dto';
 import { Response } from 'express';
+import {Public } from '../../../auth/constants/constants';
 
 @Controller('users')
 export class UserController {
     constructor(private readonly emailService: EmailService) { }
 
+    @Public()
     @Post('register')
     async registerUser(@Body() createUserDto: UserDto, @Res() res: Response): Promise<Response> {
         try {
