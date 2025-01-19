@@ -20,7 +20,7 @@
     npm i && npm run start:dev
 </pre>
 
-### Isso irá iniciar o servidor em modo de compilação ( O servidor irá reiniciar a cada mudança feita no projeto)
+### Isso irá iniciar o servidor em watch mode ( O servidor irá reiniciar a cada mudança feita no projeto)
 
 ## Explicação do projeto
 ### A arquitetura do projeto foi sustentada em um DDD ( Domain Driven Design) separado por módulos dentro da aplicação, tendo como domínios principais o Usuário e a Carteira além de domínios compartilhados entre eles. 
