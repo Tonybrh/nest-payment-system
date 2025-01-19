@@ -6,7 +6,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class WalletRepository implements WalletRepositoryInterface {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
   async createWallet(data: WalletDto): Promise<Wallet> {
     try {
@@ -46,13 +46,13 @@ export class WalletRepository implements WalletRepositoryInterface {
 
   async findOne(walletId: number): Promise<Wallet> {
     try {
-      return await this.prismaService.wallet.findFirst({ where: {id: walletId} });
+      return await this.prismaService.wallet.findFirst({ where: { id: walletId } });
     } catch (error) {
       throw error;
     }
   }
 
-  async updateWallet(walletId: number, btcBalance: number, dolarBalance: number ): Promise<void> {
+  async updateWallet(walletId: number, btcBalance: number, dolarBalance: number): Promise<void> {
     try {
       await this.prismaService.wallet.update({
         where: {
