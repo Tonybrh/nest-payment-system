@@ -6,7 +6,7 @@ import { EmailServiceInterface } from '../../Domain/service/mailer.service.inter
 
 @Injectable()
 export class EmailService implements EmailServiceInterface{
-
+    private baseUrl = 'https://localhost:3000/';
     constructor(
         private readonly mailerService: MailerService,
         private jwtService: JwtService,
@@ -15,13 +15,17 @@ export class EmailService implements EmailServiceInterface{
 
     async sendVerificationEmail(userDto: UserDto): Promise<void> {
         const token = this.jwtService.sign({ userDto }, { expiresIn: '1h' });
-        const verificationUrl = `http://localhost:3000/verify-email?token=${token}`;
+        const verificationUrl = `${this.baseUrl}verify-email?token=${token}`;
 
         await this.mailerService.sendMail({
             to: userDto.email,
             subject: 'Confirme seu e-mail',
-            text: `Por favor, clique no link abaixo para verificar seu e-mail:\n\n${verificationUrl}`,
-            html: `<p>Por favor, clique no link abaixo para verificar seu e-mail:</p><a href="${verificationUrl}">Verificar E-mail</a>`,
+            template: 'verify-email',
+            context: {
+                name: userDto.name,
+                verificationUrl,
+                companyName: 'NestJs Payment System',
+            },
         });
     }
 }

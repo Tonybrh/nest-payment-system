@@ -11,6 +11,9 @@ import { WalletModule } from '../wallet/wallet.module';
 import { VerifyEmailController } from './application/controller/mailer.controller';
 import { WalletRepository } from '../wallet/infrastructure/repository/wallet.repository';
 import { UserService } from '../user/infrastructure/service/user.service';
+import { join } from 'path';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+
 
 @Module({
     imports: [
@@ -24,6 +27,13 @@ import { UserService } from '../user/infrastructure/service/user.service';
                     auth: {
                         user: configService.get<string>('MAILTRAP_USER'),
                         pass: configService.get<string>('MAILTRAP_PASS'),
+                    },
+                },
+                template: {
+                    dir: join(__dirname, '../../../../templates/mails/'),
+                    adapter: new HandlebarsAdapter(),
+                    options: {
+                        strict: true,
                     },
                 },
                 defaults: {
