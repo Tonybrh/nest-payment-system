@@ -34,7 +34,7 @@ describe('UserController', () => {
         jest.clearAllMocks();
     });
 
-    it('deve chamar o serviço de e-mail e retornar status 200 com mensagem de sucesso', async () => {
+    it('must call the email service and return status 200 with a success message', async () => {
         mockEmailService.sendVerificationEmail.mockResolvedValueOnce(null);
 
         const userDto: UserDto = {
@@ -56,7 +56,7 @@ describe('UserController', () => {
         expect(mockResponse.json).toHaveBeenCalledWith({ message: 'verifique o email na caixa de entrad' });
     });
 
-    it('deve retornar status 400 e mensagem de erro quando o envio de e-mail falhar', async () => {
+    it('should return status 400 and error message when sending email fails', async () => {
         mockEmailService.sendVerificationEmail.mockRejectedValueOnce(new Error('Falha no envio de e-mail'));
 
         const userDto: UserDto = {
